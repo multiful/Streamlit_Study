@@ -2,3 +2,4 @@ streamlit
 pandas
 Pillow
 plotly
+matplotlib>=3.0
