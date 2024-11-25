@@ -4,3 +4,4 @@ Pillow
 plotly
 matplotlib>=3.0
 folium
+geopandas
