@@ -5,4 +5,4 @@ plotly
 matplotlib>=3.0
 folium
 geopandas
-st_folium
+streamlit_folium
