@@ -6,14 +6,20 @@ import geopandas as gpd
 
 st.title('지도 시각화')
 
+
+st.title('')
 # 텍스트
-st.header('행정구역별 출생률 지도 시각화')
 df_br = pd.read_excel('assignment_3_df.xlsx')
 
+
+
+st.header('출산률 데이터 프레임 head')
 st.write(df_br.head())
 
 # GeoDataFrame 로딩
 gdf_SGG = gpd.read_file('TL_SCCO_SIG.json')
+
+
 
 # 처리 함수 정의
 def process_location(data):
@@ -47,6 +53,8 @@ gdf_SGG_filtered = gdf_SGG.copy()
 gdf_SGG_filtered['행정구역'] = gdf_SGG['SIG_KOR_NM'].apply(apply_processing)
 
 # 결과 확인
+
+st.header('행정구역 시 군 구 데이터프레임 head')
 st.write(gdf_SGG_filtered.head())
 
 # 한국 시각화
@@ -76,4 +84,6 @@ folium.Choropleth(
 ).add_to(korea_map)
 
 # Streamlit에서 folium 지도 표시
+
+st.header('행정구역별 출생률 지도 시각화')
 st_folium(korea_map, width=700, height=500)
