@@ -1,4 +1,3 @@
-from shapely import wkt
 import streamlit as st
 import folium
 import pandas as pd
@@ -19,10 +18,6 @@ st.write(df_br.head())
 
 # GeoDataFrame 로딩
 gdf_SGG = gpd.read_file('TL_SCCO_SIG.json')
-
-
-# 'geometry' 컬럼을 WKT 형식으로 변환하여 'geometry_wkt'라는 새로운 컬럼에 저장
-gdf_SGG['geometry_wkt'] = gdf_SGG['geometry'].apply(lambda x: wkt.dumps(x))
 
 
 # 변환된 GeoDataFrame 출력
