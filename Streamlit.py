@@ -1,21 +1,32 @@
+from shapely import wkt
 import streamlit as st
 import folium
 import pandas as pd
 from streamlit.components.v1 import iframe
 import pandas as pd
+import openpyxl
+import pandas as pd
 import geopandas as gpd
+import json
 
 st.title('지도 시각화')
 
 #텍스트
 st.header('행정구역별 출생률 지도 시각화')
-
-
 df_br = pd.read_excel('assignment_3_df.xlsx')
 
+st.write(df_br.head())
+
+# GeoDataFrame 로딩
 gdf_SGG = gpd.read_file('TL_SCCO_SIG.json')
 
-gdf_SGG.head()
+
+# 'geometry' 컬럼을 WKT 형식으로 변환하여 'geometry_wkt'라는 새로운 컬럼에 저장
+gdf_SGG['geometry_wkt'] = gdf_SGG['geometry'].apply(lambda x: wkt.dumps(x))
+
+
+# 변환된 GeoDataFrame 출력
+st.write(gdf_SGG[['SIG_KOR_NM', 'geometry_wkt']].head())
 
 # 처리 함수 정의
 def process_location(data):
@@ -49,7 +60,7 @@ gdf_SGG_filtered = gdf_SGG.copy()
 gdf_SGG_filtered['행정구역'] = gdf_SGG['SIG_KOR_NM'].apply(apply_processing)
 
 # 결과 확인
-gdf_SGG_filtered.head()
+st.write(gdf_SGG_filtered.head())
 # 한국 시각화
 
 title = '한국 시군구 별 출산율'
